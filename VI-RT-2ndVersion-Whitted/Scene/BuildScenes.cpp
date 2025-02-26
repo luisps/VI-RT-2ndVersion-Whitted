@@ -102,7 +102,7 @@ void CornellBox (Scene& scene) {
     int const blue_mat = AddPhongMat(scene, RGB (0., 0., 0.9), RGB (0., 0., 0.4), RGB (0., 0., 0.), RGB (0., 0., 0.), 1);
     int const orange_mat = AddPhongMat(scene, RGB (0.99, 0.65, 0.), RGB (0.37, 0.24, 0.), RGB (0., 0., 0.), RGB (0., 0., 0.), 1);
     int const mirror_mat = AddPhongMat(scene, RGB (0., 0., 0.), RGB (0., 0., 0.), RGB (0.9, 0.9, 0.9), RGB (0., 0., 0.), 1);
-    int const glass_mat = AddPhongMat(scene, RGB (0., 0., 0.), RGB (0., 0., 0.), RGB (0.1, 0.1, 0.1), RGB (0.7, 0.7, 0.7), 1);
+    int const glass_mat = AddPhongMat(scene, RGB (0., 0., 0.), RGB (0., 0., 0.), RGB (0.2, 0.2, 0.2), RGB (0.6, 0.6, 0.6), 1);
     // Floor
     AddTriangle(scene, Point(552.8, 0.0, 0.0), Point(0.0, 0.0, 0.0), Point(0.0, 0.0, 559.2), white_mat);
     AddTriangle(scene, Point(549.6, 0.0, 559.2), Point(552.8, 0.0, 0.0), Point(0.0, 0.0, 559.2), white_mat);
@@ -119,8 +119,8 @@ void CornellBox (Scene& scene) {
     AddTriangle(scene, Point(552.8, 0.0, 0.), Point(549.6, 0., 559.2), Point(549.6, 548.8, 559.2), red_mat);
     AddTriangle(scene, Point(552.8, 0.0, 0.), Point(552.8, 548.8, 0.), Point(549.6, 548.8, 559.2), red_mat);
     // Right Wall Mirror
-    //AddTriangle(scene, Point(552, 50.0, 50.), Point(549, 50., 509.2), Point(549, 488.8, 509.2), mirror_mat);
-    //AddTriangle(scene, Point(552, 50.0, 50.), Point(552, 488.8, 50.), Point(549, 488.8, 509.2), mirror_mat);
+    AddTriangle(scene, Point(552, 50.0, 50.), Point(549, 50., 509.2), Point(549, 488.8, 509.2), mirror_mat);
+    AddTriangle(scene, Point(552, 50.0, 50.), Point(552, 488.8, 50.), Point(549, 488.8, 509.2), mirror_mat);
     // short block
     // top
     AddTriangle(scene, Point(130.0, 165.0,  65.0), Point( 82.0, 165.0, 225.0), Point(240.0, 165.0, 272.0), orange_mat);
@@ -162,9 +162,7 @@ void CornellBox (Scene& scene) {
     AddTriangle(scene, Point(265.0, 0.0, 296.0), Point(423.0, 0.0, 247.0), Point(423.0, 330.0, 247.0), blue_mat);
     
     // transparent sphere
-    //AddSphere(scene, Point(160., 320., 225.), 110., glass_mat);
-    /*AddTriangle(scene, Point( 130.0,   200.0,  65.0), Point(130.0, 265.0, 65.0), Point(290.0, 265.0, 114.0), glass_mat);
-    AddTriangle(scene, Point( 130.0,   200.0,  65.0), Point(290.0, 200.0, 114.0), Point(290.0, 265.0, 114.0), glass_mat);*/
+    AddSphere(scene, Point(160., 320., 225.), 110., glass_mat);
 
     // add an ambient light to the scene
     AmbientLight *ambient = new AmbientLight(RGB(0.5,0.5,0.5));

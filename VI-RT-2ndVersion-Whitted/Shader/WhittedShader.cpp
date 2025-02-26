@@ -44,6 +44,17 @@ RGB WhittedShader::specularReflection (Intersection isect, Phong *f, int depth) 
     return color;
 }
 
+inline Vector refract(const Vector& V, const Vector& N, double etai_over_etat) {
+    auto cos_theta = std::fmin(N.dot(-1.*V), 1.0);
+    Vector const r_out_perp =  etai_over_etat * (V + cos_theta*N);
+    Vector const r_out_parallel = -std::sqrt(std::fabs(1.0 - r_out_perp.normSQ())) * N;
+    Vector T = r_out_perp + r_out_parallel;
+    T.normalize();
+    return T;
+}
+
+
+
 RGB WhittedShader::specularTransmission (Intersection isect, Phong *f, int depth) {
     RGB color(0., 0., 0.);
     

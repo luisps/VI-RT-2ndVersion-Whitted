@@ -36,7 +36,7 @@ public:
     inline float norm () {
         return std::sqrtf(X*X+Y*Y+Z*Z);
     }
-    inline float normSQ () {
+    inline float normSQ () const {
         return (X*X+Y*Y+Z*Z);
     }
     inline void normalize () {
