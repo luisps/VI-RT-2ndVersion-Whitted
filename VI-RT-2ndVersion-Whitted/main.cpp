@@ -37,15 +37,15 @@ int main(int argc, const char * argv[]) {
     /* Scenes*/
     
     /* Single Sphere */
-    SpheresScene(scene, 1);
+    //SpheresScene(scene, 1);
     /* Single Sphere and Triangles */
     //SpheresTriScene(scene);
     // Camera parameters for the simple scenes
-    const Point Eye ={0,0,0}, At={0,0,1};
+    //const Point Eye ={0,0,0}, At={0,0,1};
     /* Cornell Box */
-    //CornellBox(scene);
+    CornellBox(scene);
     // Camera parameters for the Cornell Box
-    //const Point Eye ={280,265,-500}, At={280,260,0};
+    const Point Eye ={280,265,-500}, At={280,260,0};
     //const Point Eye ={0,325,0}, At={560,345,350};
 
 

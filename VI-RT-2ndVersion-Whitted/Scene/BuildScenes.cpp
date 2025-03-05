@@ -8,7 +8,7 @@
 #include "BuildScenes.hpp"
 
 static int AddDiffuseMat (Scene& scene, RGB const color);
-static int AddPhongMat (Scene& scene, RGB const Ka, RGB const Kd, RGB const Ks, RGB const Kt, float const Ns);
+static int AddPhongMat (Scene& scene, RGB const Ka, RGB const Kd, RGB const Ks, RGB const Kt, float const Ns, float const eta=1.f);
 static void AddSphere (Scene& scene, Point const C, float const radius,
                             int const mat_ndx);
 static void AddTriangle (Scene& scene,
@@ -27,7 +27,7 @@ static int AddDiffuseMat (Scene& scene, RGB const color) {
     return (scene.AddMaterial(brdf));
 }
 
-static int AddPhongMat (Scene& scene, RGB const Ka, RGB const Kd, RGB const Ks, RGB const Kt, float const Ns) {
+static int AddPhongMat (Scene& scene, RGB const Ka, RGB const Kd, RGB const Ks, RGB const Kt, float const Ns, float const eta) {
     Phong *brdf = new Phong;
     
     brdf->Ka = Ka;
@@ -35,6 +35,7 @@ static int AddPhongMat (Scene& scene, RGB const Ka, RGB const Kd, RGB const Ks, 
     brdf->Ks = Ks;
     brdf->Kt = Kt;
     brdf->Ns = Ns;
+    brdf->eta = eta;
     
     return (scene.AddMaterial(brdf));
 }
@@ -102,7 +103,8 @@ void CornellBox (Scene& scene) {
     int const blue_mat = AddPhongMat(scene, RGB (0., 0., 0.9), RGB (0., 0., 0.4), RGB (0., 0., 0.), RGB (0., 0., 0.), 1);
     int const orange_mat = AddPhongMat(scene, RGB (0.99, 0.65, 0.), RGB (0.37, 0.24, 0.), RGB (0., 0., 0.), RGB (0., 0., 0.), 1);
     int const mirror_mat = AddPhongMat(scene, RGB (0., 0., 0.), RGB (0., 0., 0.), RGB (0.9, 0.9, 0.9), RGB (0., 0., 0.), 1);
-    int const glass_mat = AddPhongMat(scene, RGB (0., 0., 0.), RGB (0., 0., 0.), RGB (0.2, 0.2, 0.2), RGB (0.6, 0.6, 0.6), 1);
+    int const glass_mat = AddPhongMat(scene, RGB (0., 0., 0.), RGB (0., 0., 0.), RGB (0.2, 0.2, 0.2), RGB (0.9, 0.9, 0.9), 1, 1.2);
+    //int const glass_mat = AddPhongMat(scene, RGB (0., 0., 0.), RGB (0., 0., 0.), RGB (0.2, 0.2, 0.2), RGB (0.9, 0.9, 0.9), 1, 0.9);
     // Floor
     AddTriangle(scene, Point(552.8, 0.0, 0.0), Point(0.0, 0.0, 0.0), Point(0.0, 0.0, 559.2), white_mat);
     AddTriangle(scene, Point(549.6, 0.0, 559.2), Point(552.8, 0.0, 0.0), Point(0.0, 0.0, 559.2), white_mat);
@@ -163,14 +165,20 @@ void CornellBox (Scene& scene) {
     
     // transparent sphere
     AddSphere(scene, Point(160., 320., 225.), 110., glass_mat);
-
+  
     // add an ambient light to the scene
-    AmbientLight *ambient = new AmbientLight(RGB(0.5,0.5,0.5));
+    AmbientLight *ambient = new AmbientLight(RGB(0.15,0.15,0.15));
     //AmbientLight *ambient = new AmbientLight(RGB(0.07,0.07,0.07));
     scene.lights.push_back(ambient);
     scene.numLights++;
-    PointLight *p1 = new PointLight(RGB(0.7,0.7,0.7),Point(278.,545.,280.));
+    PointLight *p1 = new PointLight(RGB(0.8,0.8,0.8),Point(278.,545.,280.));
     scene.lights.push_back(p1);
     scene.numLights++;
+    /*PointLight *p2 = new PointLight(RGB(0.5,0.5,0.5),Point(78.,545.,280.));
+    scene.lights.push_back(p2);
+    scene.numLights++;
+    PointLight *p3 = new PointLight(RGB(0.5,0.5,0.5),Point(478.,545.,280.));
+    scene.lights.push_back(p3);
+    scene.numLights++;*/
     return ;
 }

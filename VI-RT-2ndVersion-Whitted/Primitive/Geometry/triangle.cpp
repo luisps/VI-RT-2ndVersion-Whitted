@@ -64,6 +64,7 @@ bool Triangle::intersect(Ray r, Intersection *isect) {
         isect->FaceID = -1;
         isect->pix_x = r.pix_x;
         isect->pix_y = r.pix_y;
+        isect->incident_eta = r.propagating_eta;
 
         return true;
     }

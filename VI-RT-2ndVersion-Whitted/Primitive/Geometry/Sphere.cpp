@@ -46,7 +46,8 @@ bool Sphere::intersect(Ray r, Intersection *isect) {
         isect->FaceID = -1;
         isect->pix_x = r.pix_x;
         isect->pix_y = r.pix_y;
-
+        isect->incident_eta = r.propagating_eta;
+        
         return true;
     }
     else  {// This means that there is a line intersection but not a ray intersection.

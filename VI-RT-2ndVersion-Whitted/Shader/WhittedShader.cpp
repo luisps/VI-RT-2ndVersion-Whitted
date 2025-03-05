@@ -24,42 +24,46 @@ RGB WhittedShader::directLighting (Intersection isect, Phong *f) {
         }
         if ((*l)->type == POINT_LIGHT) {  // is it a point light ?
             // ...
-            if (!f->Kd.isZero()) {
-            } // Kd is zero
+           
             continue;
         }  // END of point light
     }  // END iterate over light sources
     return color;
 }
 
-RGB WhittedShader::specularReflection (Intersection isect, Phong *f, int depth) {
-    RGB color(0.,0.,0.);
-    Vector Rdir;
-    
-    // ...
-    // generate the specular ray
-    
-    // direction R = 2 (N.V) N - V
-
-    return color;
-}
-
-inline Vector refract(const Vector& V, const Vector& N, double etai_over_etat) {
+inline Vector refract(const Vector& V, const Vector& N, double IOR) {
     auto cos_theta = std::fmin(N.dot(-1.*V), 1.0);
-    Vector const r_out_perp =  etai_over_etat * (V + cos_theta*N);
+
+    Vector const r_out_perp =  IOR * (V + cos_theta*N);
     Vector const r_out_parallel = -std::sqrt(std::fabs(1.0 - r_out_perp.normSQ())) * N;
     Vector T = r_out_perp + r_out_parallel;
     T.normalize();
     return T;
 }
 
+inline Vector reflect(const Vector& V, const Vector& N) {
+    float cos = N.dot(V);
+    return 2.f * cos * N - V;
+}
 
+RGB WhittedShader::specularReflection (Intersection isect, Phong *f, int depth) {
+    RGB color(0.,0.,0.);
+    
+    // ...
+    // generate the specular ray
+    
+
+
+    return color;
+}
 
 RGB WhittedShader::specularTransmission (Intersection isect, Phong *f, int depth) {
     RGB color(0., 0., 0.);
-    
+
+    // generate the transmission ray
+    // from https://raytracing.github.io/books/RayTracingInOneWeekend.html#dielectrics
     // ...
-   
+
     return color;
 }
 
@@ -81,7 +85,7 @@ RGB WhittedShader::shade(bool intersected, Intersection isect, int depth) {
         color += specularReflection (isect, f, depth+1);
     }
     // if there is a specular component sample it
-    if (!f->Kt.isZero() && depth<3) {
+    if (!f->Kt.isZero() && depth<7) {
         color += specularTransmission (isect, f, depth+1);
     }
 

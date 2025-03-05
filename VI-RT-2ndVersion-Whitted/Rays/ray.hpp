@@ -21,6 +21,7 @@ public:
     Vector invDir;  // ray direction reciprocal for intersections
     RGB throughput;
     int pix_x, pix_y;
+    float propagating_eta;
     Ray () {}
     Ray (Point o, Vector d, RGB _throughput): o(o),dir(d), throughput(_throughput) {}
     Ray (Point o, Vector d): o(o),dir(d) {

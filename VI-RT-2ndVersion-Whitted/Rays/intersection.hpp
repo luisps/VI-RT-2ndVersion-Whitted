@@ -23,6 +23,7 @@ public:
     int FaceID;  // ID of the intersected face 
     bool isLight;  // for intersections with light sources
     RGB Le;         // for intersections with light sources
+    float incident_eta;
     
     
     Intersection() {}

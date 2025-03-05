@@ -21,6 +21,7 @@ typedef enum {
 
 class BRDF {
 public:
+    float eta;
     BRDF () {}
     ~BRDF () {}
     // return the BRDF RGB value for a pair of (incident, scattering) directions : (wi,wo)
