@@ -22,7 +22,9 @@ typedef enum {
 class BRDF {
 public:
     float eta;
-    BRDF () {}
+    RGB Kd, Ks, Kt;
+    
+    BRDF () {eta=1.;}
     ~BRDF () {}
     // return the BRDF RGB value for a pair of (incident, scattering) directions : (wi,wo)
     virtual RGB f (Vector wi, Vector wo, const BRDF_TYPES = BRDF_ALL) {return RGB();}

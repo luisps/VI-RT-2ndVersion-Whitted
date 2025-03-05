@@ -27,14 +27,14 @@ static int AddDiffuseMat (Scene& scene, RGB const color) {
     return (scene.AddMaterial(brdf));
 }
 
-static int AddPhongMat (Scene& scene, RGB const Ka, RGB const Kd, RGB const Ks, RGB const Kt, float const Ns, float const eta) {
+static int AddPhongMat (Scene& scene, RGB const Ka, RGB const Kd, RGB const Ks, RGB const Kt, float const r, float const eta) {
     Phong *brdf = new Phong;
     
     brdf->Ka = Ka;
     brdf->Kd = Kd;
     brdf->Ks = Ks;
     brdf->Kt = Kt;
-    brdf->Ns = Ns;
+    brdf->rough = r;
     brdf->eta = eta;
     
     return (scene.AddMaterial(brdf));
